@@ -1,0 +1,3 @@
+<mat-spinner class="spinner" *ngIf="(isLoading$ | async)"></mat-spinner>
+<app-timeline-header *ngIf="!(isLoading$ | async)"></app-timeline-header>
+<app-cards-table *ngIf="!(isLoading$ | async)"></app-cards-table>

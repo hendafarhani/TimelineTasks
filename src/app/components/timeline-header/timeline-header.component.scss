@@ -1,0 +1,17 @@
+.span {
+    margin: auto;
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    position: relative;
+    left: 313px;
+}
+
+::ng-deep .mat-select-content {
+    width: 2000px;
+    font-size: 10px;
+    // border-radius: 20%;
+}

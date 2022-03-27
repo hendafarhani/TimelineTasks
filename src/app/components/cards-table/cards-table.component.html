@@ -1,0 +1,17 @@
+<table class="blueTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th *ngFor="let dayMap of (daysListPerWeek$|async) | keyvalue" scope="col">{{dayMap.value}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let label of (selectedNoteLabelsList$ | async)">
+            <th scope="row" style="width:20vw; height: 14vw;">{{label.text}}</th>
+            <td *ngFor="let dayMap of (daysListPerWeek$|async)">
+                <app-cards [labelId]="label.id" [day]="dayMap" (startDateChange)="onChangeStartDate($event, label.id)">
+                </app-cards>
+            </td>
+        </tr>
+    </tbody>
+</table>

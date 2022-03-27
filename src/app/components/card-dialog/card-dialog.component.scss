@@ -1,0 +1,32 @@
+.row-fields {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: baseline;
+}
+
+.button {
+    position: relative;
+    bottom: -59px;
+    left: 395px;
+}
+
+.action-buttons {
+    gap: 9px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.form{
+    margin-top: 2cm;
+}
+
+.title {
+    color: steelblue;
+    font-size: 1em;
+}
+
+::ng-deep .mat-dialog-container {
+    background: #fdf7ef;
+}

@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>
+	<p class="title">Edit task</p>
+</h1>
+
+<div mat-dialog-content>
+	<form [formGroup]="formGroup" class="form" (ngSubmit)="onSubmit()">
+		<div class="row-fields">
+			<mat-form-field appearance="legacy">
+				<mat-label>Title</mat-label>
+				<input matInput formControlName="title">
+			</mat-form-field>
+			<mat-form-field appearance="legacy">
+				<mat-label>Start date</mat-label>
+				<input matInput [matDatepicker]="startDate" [matDatepickerFilter]="weekendsDatesFilter"
+					[max]="(maxStartDate$ | async)" [min]="(minStartDate$ | async)" formControlName="startDate">
+				<mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+				<mat-datepicker #startDate></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<div class="row-fields">
+			<mat-form-field appearance="legacy">
+				<mat-label>Summary</mat-label>
+				<textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+					cdkAutosizeMaxRows="5" formControlName="summary"></textarea>
+			</mat-form-field>
+			<mat-form-field appearance="legacy">
+				<mat-label>duration</mat-label>
+				<input matInput type="number" formControlName="duration">
+			</mat-form-field>
+		</div>
+		<div mat-dialog-actions class="action-buttons">
+			<button (click)="onCancel()" class="button" mat-stroked-button color="primary" type="button"
+				mat-dialog-close cdkFocusInitial>Cancel</button>
+			<button class="button" mat-stroked-button color="primary" type="submit"
+				[disabled]="!formGroup.valid">Submit</button>
+		</div>
+		<small style="color:red;" *ngIf="formGroup.get('summary').hasError('maxlength')">
+			Summary field is too long. It can not exceed 250 letters.
+		</small>
+		<br />
+		<small style="color:red;" *ngIf="formGroup.get('duration').hasError('min')">
+			Duration must be at least one day.
+		</small>
+	</form>
+</div>

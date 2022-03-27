@@ -1,0 +1,25 @@
+<mat-toolbar color="primary" class="toolbar">
+	<div>
+		<mat-form-field appearance="fill">
+			<mat-label>Select</mat-label>
+			<mat-select (selectionChange)="onSelectLabel($event)">
+				<mat-option [value]="undefined">All</mat-option>
+				<mat-option *ngFor="let label of (noteLabels$|async)" [value]="label.id">{{label.text }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<div class="center">
+		<button (click)="incrementDayOfWeek(false)" [disabled]="(isDecrementWeekNumberDisabled$ |async)"
+			mat-icon-button>
+			<mat-icon>keyboard_arrow_left</mat-icon>
+		</button>
+		<span>
+			Calendar week {{(weekNumber$ | async)}}
+		</span>
+		<button (click)="incrementDayOfWeek(true)" [disabled]="(isIncrementWeekNumberDisabled$ |async)" mat-icon-button>
+			<mat-icon> keyboard_arrow_right</mat-icon>
+		</button>
+	</div>
+</mat-toolbar>

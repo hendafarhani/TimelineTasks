@@ -1,0 +1,42 @@
+<mat-card *ngFor="let card of (cardsPerLabelAndWeek$ | async); let i = index"
+    [ngClass]="{'card': (cardsPerLabelAndWeek$ | async)?.length ==1, 'card-superpose': (cardsPerLabelAndWeek$ | async)?.length> 1}"
+    (mouseover)="toggleHover(card?.id)" (mouseleave)="removeHover()" (click)="OnMatCardClickEvent(card)">
+    <mat-card-title>
+        {{card?.title}}
+        <p class="bubble">{{card?.id}}
+        </p>
+    </mat-card-title>
+    <mat-card-content *ngIf="(cardsPerLabelAndWeek$ | async)?.length == 1 || hoverId == card.id">
+        <ng-template
+            *ngTemplateOutlet="summaryField; context: { $implicit: {summary:card?.summary, isDisplayShort: false} }">
+        </ng-template>
+        <span class="text">
+            <label class="label"> Start date: </label> {{ card?.startDateFormatted}}
+        </span>
+        <div class="blueline"></div>
+        <span class="text">
+            <label class="label"> Duration:</label> {{ card?.duration}} days
+        </span>
+        <div class="blueline"></div>
+        <button *ngIf="hoverId ==card?.id" class="button" mat-stroked-button color="primary"
+            (click)="delete($event, card)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-content>
+    <ng-template
+        [ngIf]="(cardsPerLabelAndWeek$ | async)?.length > 1  && (cardsPerLabelAndWeek$ | async)?.length -1 == i && hoverId == undefined">
+        <ng-template
+            *ngTemplateOutlet="summaryField; context: { $implicit: {summary:card?.summary, isDisplayShort: true} }">
+        </ng-template>
+    </ng-template>
+</mat-card>
+
+
+<ng-template #summaryField let-data>
+    <fieldset>
+        <legend class="text label">Summary</legend>
+        <p class="text">
+            {{(data.summary?.length > 90 && data.isDisplayShort)? (data.summary | slice:0:90)+'...': data.summary}}
+        </p>
+    </fieldset>
+</ng-template>

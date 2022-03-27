@@ -1,0 +1,18 @@
+// :host {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+// }
+
+// .content {
+//   padding: 16px;
+// }
+
+
+.spinner {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
