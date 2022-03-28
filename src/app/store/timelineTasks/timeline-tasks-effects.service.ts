@@ -29,6 +29,8 @@ export class TimelineTasksEffectsService {
 			])
 		),
 		switchMap(([noteLabelsList, { noteCardsList, minWeekNumber, minStartDate, maxWeekNumber, maxStartDate }]) => {
+			console.log("noteLabelsList", noteLabelsList);
+			console.log("noteCardsList", noteCardsList);
 			const { tasksPerLabelList, weeksMap } = NotesUtils.createDaysPerWeeksListAndTasksPerLabelList(this.datePipe, noteCardsList, noteLabelsList, minWeekNumber, minStartDate, maxStartDate);
 			return [
 				new LoadTimelineTasksSuccessAction(tasksPerLabelList),
@@ -62,31 +64,12 @@ export class TimelineTasksEffectsService {
 							if (NotesUtils.isMaxStackedNotesExceeded(this.datePipe, tasksList, card, minWeekNumber)) {
 								return new UpdateCardFailure(new Error("Sorry! You can not add more than three notes in one day."));
 							}
-
-							if (action.payload.isChangeDuration) {
-								// If both start date and duration are changed 
-								// => Update the start date first, then the duration and after the end date.  
-
-								let tasksListResult = NotesUtils.moveCardToNewStartDate(this.datePipe, card, tasksList, minWeekNumber, false);
-								tasksListResult = NotesUtils.updateCardEndDateBasedOnDuration(card, tasksListResult, minWeekNumber);
-								return new UpdateCardSuccess(tasksListResult);
-							} else {
-								const endDate = new Date(card.endDate);
-								const startDate = new Date(card.startDate);
-								const calculatedDuration = DateUtils.calcBusinessDays(endDate, startDate);
-
-								if (calculatedDuration == -1) {
-									return new UpdateCardFailure(new Error("Sorry! End date: " + this.datePipe.transform(endDate, 'MM-dd-y') + " must be greater than the start date chosen: " + this.datePipe.transform(startDate, 'MM-dd-y')));
-								}
-								// If start date changes => End date is fixed so duration will be changed
-								// and card must be moved to the corresponding start date.
-								const tasksListResult = NotesUtils.moveCardToNewStartDate(this.datePipe, card, tasksList, minWeekNumber, true);
-								return new UpdateCardSuccess(tasksListResult);
-							}
+							let tasksListResult = NotesUtils.moveCardToNewStartDate(this.datePipe, card, tasksList, minWeekNumber);
+							return new UpdateCardSuccess(tasksListResult);
 						} else {
 							if (action.payload.isChangeDuration) {
-								// If duration changes => End Date would change and card's extending also
-								const tasksListResult = NotesUtils.updateCardEndDateBasedOnDuration(card, tasksList, minWeekNumber);
+								// If duration changes => End Date would change 
+								let tasksListResult = NotesUtils.updateCardEndDateBasedOnDuration(card, tasksList, minWeekNumber);
 								return new UpdateCardSuccess(tasksListResult);
 							} else {
 								const tasksListResult = NotesUtils.updateCard(card, tasksList, minWeekNumber);

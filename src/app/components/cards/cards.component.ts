@@ -65,7 +65,4 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  drop(event) {
-    console.log(event);
-  }
 }

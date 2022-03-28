@@ -20,10 +20,8 @@ export function logger(
     reducer: ActionReducer<AppState>
 ): ActionReducer<AppState> {
     return (state: AppState, action: any) => {
-        console.log('state', state);
-        console.log('action', action);
         return reducer(state, action);
     };
 }
 
-export const metaReducers: MetaReducer<AppState>[] = [logger];
+export const metaReducers: MetaReducer<AppState>[] = [];

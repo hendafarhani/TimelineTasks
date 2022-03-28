@@ -59,7 +59,7 @@ export class NotesUtils {
         return { tasksPerLabelList, weeksMap };
     }
 
-    public static moveCardToNewStartDate(datePipe: DatePipe, noteCard: NoteCard, tasksList: Map<number, any[]>, minWeekNumber, updateDuration: boolean) {
+    public static moveCardToNewStartDate(datePipe: DatePipe, noteCard: NoteCard, tasksList: Map<number, any[]>, minWeekNumber) {
         const startDate = new Date(noteCard.startDate);
         const tasksListResult = new Map(tasksList);
 
@@ -76,9 +76,8 @@ export class NotesUtils {
 
         noteCard.startDateFormatted = startDateFormatted;
         noteCard.weekNumber = weekNumber;
-        if (updateDuration) {
-            noteCard.duration = DateUtils.calcBusinessDays(new Date(noteCard.endDate), new Date(noteCard.startDate));
-        }
+
+        noteCard.endDate = DateUtils.getEndDateTimeInMilliseconds(noteCard.startDate, noteCard.duration - 1);
 
         // Add card to its new start date
         if (tasksListResult.get(noteCard.label)[weekNumber - minWeekNumber].get(startDateFormatted) == undefined) {
@@ -117,10 +116,14 @@ export class NotesUtils {
         const startDate = new Date(noteCard.startDate);
         const startDateFormatted = DateUtils.getDateFormatted(startDate.getDate(), startDate.getMonth() + 1);
         const weekNumber = parseInt(datePipe.transform(startDate, 'w'));
-        if (tasksListResult.get(noteCard.label)[weekNumber - minWeekNumber].get(startDateFormatted) == undefined) {
+        let cardsPerDayList = tasksListResult.get(noteCard.label)[weekNumber - minWeekNumber].get(startDateFormatted);
+        if (cardsPerDayList == undefined) {
             return false;
         }
-        return tasksListResult.get(noteCard.label)[weekNumber - minWeekNumber].get(startDateFormatted).length == 3;
+        const index = cardsPerDayList.findIndex((element) => {
+            return element.id == noteCard.id
+        });
+        return cardsPerDayList.length == 3 && (index == undefined || index == -1);
     }
 
     public static addNoteCardRelatedToLabel(tasksPerLabelList, noteCardsList, key, minWeekNumber) {
