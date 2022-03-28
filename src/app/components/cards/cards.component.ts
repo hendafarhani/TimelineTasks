@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { TimelineTasksFacadeService } from 'src/app/facades/timelineTasks/timeline-tasks-facade.service';
 import { NoteCard } from 'src/app/models/note-card';
-import { ConfirmationDialogComponent } from 'src/app/sharedComponents/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { CardDialogComponent } from '../card-dialog/card-dialog.component';
 
 @Component({

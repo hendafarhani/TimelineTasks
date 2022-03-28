@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, ReplaySubject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { TimelineTasksFacadeService } from 'src/app/facades/timelineTasks/timeline-tasks-facade.service';
-import { ErrorDialogComponent } from 'src/app/sharedComponents/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-timeline',

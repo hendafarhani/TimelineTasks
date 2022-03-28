@@ -28,10 +28,10 @@ import { filterDataReducer } from './store/filter/filter-data.reducer';
 import { timelineTasksReducer } from './store/timelineTasks/timeline-tasks-reducer';
 import { weekDataReducer } from './store/week/week-data-reducer';
 import { TimelineTasksEffectsService } from './store/timelineTasks/timeline-tasks-effects.service';
-import { ErrorDialogComponent } from './sharedComponents/error-dialog/error-dialog.component';
 import { FilterDataEffectsService } from './store/filter/filter-data-effects.service';
 import { CardsComponent } from './components/cards/cards.component';
-import { ConfirmationDialogComponent } from './sharedComponents/confirmation-dialog/confirmation-dialog.component';
+import { ErrorDialogComponent } from './shared/components/error-dialog/error-dialog.component';
+import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,

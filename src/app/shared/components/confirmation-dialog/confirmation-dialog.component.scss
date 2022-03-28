@@ -1,0 +1,21 @@
+.title {
+    color: steelblue;
+    font-size: 1em;
+}
+
+.action-buttons {
+    gap: 9px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.button {
+    position: relative;
+    bottom: -16px;
+    left: 302px;
+}
+
+::ng-deep .mat-dialog-container {
+    background: #fdf7ef;
+}

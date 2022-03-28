@@ -6,7 +6,6 @@ import { forkJoin, of } from "rxjs";
 import { catchError, map, switchMap, withLatestFrom } from "rxjs/operators";
 import { NoteCard } from "src/app/models/note-card";
 import { NotesHttpService } from "src/app/services/notes-http.service";
-import { DateUtils } from "src/app/utils/date-utils";
 import { NotesUtils } from "src/app/utils/notes-utils";
 import { AppState } from "../app-reducer";
 import { InitializeWeekNumber, LoadNoteLabelsListSuccess, SetSelectedNoteLabel } from "../filter/filter-data.action";
@@ -29,8 +28,6 @@ export class TimelineTasksEffectsService {
 			])
 		),
 		switchMap(([noteLabelsList, { noteCardsList, minWeekNumber, minStartDate, maxWeekNumber, maxStartDate }]) => {
-			console.log("noteLabelsList", noteLabelsList);
-			console.log("noteCardsList", noteCardsList);
 			const { tasksPerLabelList, weeksMap } = NotesUtils.createDaysPerWeeksListAndTasksPerLabelList(this.datePipe, noteCardsList, noteLabelsList, minWeekNumber, minStartDate, maxStartDate);
 			return [
 				new LoadTimelineTasksSuccessAction(tasksPerLabelList),

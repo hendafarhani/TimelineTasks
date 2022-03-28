@@ -1,0 +1,14 @@
+.button {
+    position: relative;
+    bottom: -2px;
+    left: 194px;
+}
+
+.title {
+    color: steelblue;
+    font-size: 1em;
+}
+
+::ng-deep .mat-dialog-container {
+    background: #fdf7ef;
+}
